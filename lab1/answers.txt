@@ -1,0 +1,22 @@
+Learnings Wrap-up
+
+System info:
+1. GPU architecture: NVIDIA RTX PRO 4000 Blackwell
+	(https://www.nvidia.com/content/dam/en-zz/Solutions/products/workstations/professional-desktop-gpus/rtx-pro-4000/workstation-datasheet-rtx-pro-4000-nvidia-us-web.pdf)
+2. No. of SMs: 70 (8960 CUDA Cores / 128 CUDA Cores per SM) ??
+3. No. of SPs: 
+4. CPU: Intel Xeon w3-2525
+	(https://www.intel.com/content/www/us/en/products/sku/236882/intel-xeon-w32525-processor-22-5m-cache-3-50-ghz/specifications.html)
+5. No. threads CPU vs GPU: 16 vs 8960 CUDA cores
+	(https://modal.com/gpu-glossary/device-software/thread)
+
+
+Main gpu applications:
+1. Image processing 
+2. Simulations (physics etc.)
+3. Gaming with extensive graphics
+4. Training neural networks
+…
+
+Running CUDA code:
+1. Compile: nvcc <name>.cu -o <name>

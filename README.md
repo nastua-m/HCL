@@ -6,7 +6,7 @@ Parallelized workflows, eg.:
 
 ## Experiments
 These are the results of our benchmarks:
-![](cpu_vs_gpu_benchmark.png)
+![](lab1/cpu_vs_gpu_benchmark.png)
 As you can see, the CPU is much slower and as the plot is shown on a log scale, the gap between CPU and GPU performance gets wider as we increase input size.
 
 ## Architecture comparison

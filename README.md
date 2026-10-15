@@ -1,5 +1,6 @@
 # Deliverables
-
+by Anastasiia Matynkova and Michel Bruns
+ 
 ## Main applications of GPU: 
 Parallelized workflows, eg.:
 - training NN, 3D calculations such as simulations, rendering, Operating on large amounts of data.
@@ -22,3 +23,4 @@ For comparison:
 
 ## Race conditios
 Race conditions occure when multiple threads try to write to the same piece of memory. This can be prevented by using atomic operations, or gating the used variables with semaphores or similar. 
+

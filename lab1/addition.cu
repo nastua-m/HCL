@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 // CUDA kernel function to add two vectors
 __global__ void vectorAdd(const float *A, const float *B, float *C, int numElements) {
@@ -16,17 +17,14 @@ int main() {
     // Vector size and memory size
     int numElements = 50000;
     size_t size = numElements * sizeof(float);
-
-    // ADDED - start measuring execution time
-    float time;
-    cudaEvent_t start, stop;
-    cudaEventCreate(&start);
-    cudaEventCreate(&stop);
-    cudaEventRecord(start, 0);
     
     printf("Vector addition of %d elements\n", numElements);
     
-    // Allocate host memory
+    
+
+    // 
+    
+    // Free devicAllocate host memory
     float *h_A = (float *)malloc(size);
     float *h_B = (float *)malloc(size);
     float *h_C = (float *)malloc(size);
@@ -37,6 +35,10 @@ int main() {
         h_B[i] = rand() / (float)RAND_MAX;
     }
     
+    float *CCpu = (float *)malloc(size);
+
+
+
     // Allocate device memory
     float *d_A = NULL;
     float *d_B = NULL;
@@ -50,12 +52,16 @@ int main() {
     cudaMemcpy(d_B, h_B, size, cudaMemcpyHostToDevice);
     
     // Launch the CUDA kernel
-    int threadsPerBlock = 256;
+    int threadsPerBlock = 32;
     int blocksPerGrid = (numElements + threadsPerBlock - 1) / threadsPerBlock;
     printf("CUDA kernel launch with %d blocks of %d threads\n", blocksPerGrid, threadsPerBlock);
     
+    cudaEvent_t start, stop;
+    cudaEventCreate(&start);
+    cudaEventCreate(&stop);
+    cudaEventRecord(start, 0);
     vectorAdd<<<blocksPerGrid, threadsPerBlock>>>(d_A, d_B, d_C, numElements);
-    
+    cudaEventRecord(stop, 0);
     // Check for errors in kernel launch
     cudaError_t err = cudaGetLastError();
     if (err != cudaSuccess) {
@@ -73,26 +79,36 @@ int main() {
             exit(EXIT_FAILURE);
         }
     }
+    float time = 0;
+    cudaEventElapsedTime(&time, start, stop);
+    printf("GPU: %f", time);
     printf("Test PASSED\n");
     
     // Free device memory
     cudaFree(d_A);
     cudaFree(d_B);
     cudaFree(d_C);
+
+    struct timespec cpuStart, end;
+
+    // 1. Record the start time
+    clock_gettime(CLOCK_MONOTONIC, &cpuStart);
+
+    for(int i = 0; i < numElements; i++)
+    {
+        CCpu[i] = h_A[i] + h_B[i];
+    }
+
+    clock_gettime(CLOCK_MONOTONIC, &end);
+    double elapsed_time = (end.tv_sec - cpuStart.tv_sec) + (end.tv_nsec - cpuStart.tv_nsec) / 1e6;
+    printf("CPU: %f\n", elapsed_time);
+
     
     // Free host memory
     free(h_A);
     free(h_B);
     free(h_C);
 
-    // ADDED - stop measuring execution time
-    cudaEventRecord(stop, 0);
-    cudaEventSynchronize(stop);
-    cudaEventElapsedTime(&time, start, stop);
-
-    // ADDED - print execution time
-    printf("Elapsed time:  %3.1f ms \n", time);
-    
     printf("Done\n");
     return 0;
 } 

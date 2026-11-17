@@ -38,13 +38,19 @@ latency offloaded: 0.0053s
 
 Experience simulation:
 We preprocessed the image like this:
+
 1. Raw BGR Image
+
 2. Perspective Warped Image
+
 3. Grayscale Image
+
 4. Blurred Image
 
 And applied edge detection on top via:
+
 5. Canny Edge Detection
+
 6. Hough Lines probabilistic detection
 
 

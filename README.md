@@ -30,11 +30,17 @@ Race conditions occure when multiple threads try to write to the same piece of m
 by Anastasiia Matynkova and Michel Bruns
 
 Statistics task 1:
+
 offload rate: 48%
+
 traffic:~250KB speed: ~2KB/s
+
 traffic offloaded: 24000 pictures
+
 latency: 0.0045s
+
 latency offloaded: 0.0053s
+
 
 Experience simulation:
 We preprocessed the image like this:

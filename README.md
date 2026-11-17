@@ -1,4 +1,4 @@
-# Deliverables
+# Deliverables week 1
 by Anastasiia Matynkova and Michel Bruns
  
 ## Main applications of GPU: 
@@ -24,3 +24,28 @@ For comparison:
 ## Race conditios
 Race conditions occure when multiple threads try to write to the same piece of memory. This can be prevented by using atomic operations, or gating the used variables with semaphores or similar. 
 
+
+---------------------------
+# Deliverables week 4-6
+by Anastasiia Matynkova and Michel Bruns
+
+Statistics task 1:
+offload rate: 48%
+traffic:~250KB speed: ~2KB/s
+traffic offloaded: 24000 pictures
+latency: 0.0045s
+latency offloaded: 0.0053s
+
+Experience simulation:
+We preprocessed the image like this:
+1. Raw BGR Image
+2. Perspective Warped Image
+3. Grayscale Image
+4. Blurred Image
+
+And applied edge detection on top via:
+5. Canny Edge Detection
+6. Hough Lines probabilistic detection
+
+
+After detection the lines, we fine tuned parameters such as speed and steering angle based on how much the car was off lane center and whether a left or right turn was coming up. To remove oversteering a moving average was used taking the previous error and the current error into account, both equally weighted. This removed the wiggling from left to right.

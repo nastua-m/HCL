@@ -29,7 +29,7 @@ Race conditions occure when multiple threads try to write to the same piece of m
 # Deliverables week 4-6
 by Anastasiia Matynkova and Michel Bruns
 
-Statistics task 1:
+## Statistics task 1:
 
 offload rate: 48%
 
@@ -42,7 +42,7 @@ latency: 0.0045s
 latency offloaded: 0.0053s
 
 
-Experience simulation:
+## Experience simulation:
 We preprocessed the image like this:
 
 1. Raw BGR Image
